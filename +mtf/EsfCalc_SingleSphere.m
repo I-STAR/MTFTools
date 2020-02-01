@@ -30,7 +30,7 @@ methods
     uBinary = u > o.th; 
     uBinary = bwareaopen(uBinary,o.rmSmall);
 
-    figure, mprov(uBinary);
+    % figure, mprov(uBinary);
     [o.cent, o.radius] = mtf.sphereFit_volume(uBinary, o.uSzScale, 1, o.bTruncateTopBottom);
     % can not be written into sphereFit_volume function (since binary input...)
     mtf.validateSphereFit2D(u, o.cent, o.radius, nDebugSlice, o.uSzScale); 

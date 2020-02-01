@@ -21,3 +21,26 @@ function [] = validateSphereFit2D(u, cent, radius, nSlice, uSzScale)
     end
   end
 end
+
+function [gh] = drawcirc(coor, r, varargin)
+  p = inputParser;
+  addParameter(p, 'handle', [], @isgraphics);
+  addParameter(p, 'nPoints', 100, @isnumeric);
+  addParameter(p, 'pDraw', {[]}, @iscell);
+    
+  parse(p, varargin{:});
+  p = p.Results;
+  
+  if ~isempty(p.handle)
+    figure(p.handle);
+  end
+  
+  t = linspace(0,2*pi,p.nPoints);
+  X = r*cos(t)+coor(1);
+  Y = r*sin(t)+coor(2);
+  if isempty_cell(p.pDraw)
+    gh = line(X,Y);
+  else
+    gh = line(X,Y,p.pDraw{:});
+  end
+end

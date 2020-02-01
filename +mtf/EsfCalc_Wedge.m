@@ -24,7 +24,7 @@ methods
   function [u] = testPre(o, u, varargin)
     o.setc(varargin{:});
     [u] = permuteCrop(o, u);
-    figure, mprov(u);
+    % figure, mprov(u);
   end
   function [] = testFit(o, u)
     [o.locs,o.p1,p2,~] = mtf.findLineLoc(u, 'bDebug', 1, ...

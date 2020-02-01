@@ -6,8 +6,6 @@ function [out,p1mean,p2s_eqSpace,outRaw] = findLineLoc(in, varargin)
 % Notes:
 % 1. you can use line images with empty column (weights used)
 
-  ns = module;
-
   P = inputParser;
   addParameter(P, 'fh_loc', [], @(x) isempty(x) || isfh(x)); 
   addParameter(P, 'bDebug', 0, @isloginum); % show line for each slice (dim3)
@@ -23,7 +21,7 @@ function [out,p1mean,p2s_eqSpace,outRaw] = findLineLoc(in, varargin)
   for i = 1:size(in,3)
     l = in(:,:,i);  
     if isempty(P.fh_loc) % default detection method for edge
-      idx = ns.maxIntensityLoc_edge(l);
+      idx = mtf.maxIntensityLoc_edge(l);
     else % e.g: maxLineIntensityLoc_line
       idx = P.fh_loc(l);
     end

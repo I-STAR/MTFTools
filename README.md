@@ -7,4 +7,4 @@ See `./example_scripts/` for examples.
 # structure
 - Spread function (LSF or ESF) is determined through `EsfCalc_XXX` (`XXX` is the type of measurement tool). 
 - Then `sf2mtf` can be used to convert the spread function to MTF. 
-- `sf2mtf_mult` can be used for error bar generation. 
+- Also `sf2mtf_mult` can be used for error bar generation. 

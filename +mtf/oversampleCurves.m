@@ -9,7 +9,6 @@ function [cv, axs] = oversampleCurves(cv, locs, ang)
 % Note: 
 %   1. your axis will start from 1 (and sorted to be ascended) (axis --> unit in voxel, not physical unit)
 %   2. if ang is inputted, axs modified by cosd(ang)
-  ns = module;
   if nargin == 2; ang = 0; end
   if ang > 45
     warning('Warning. Are you sure this is the right direction (perpendicular?)?');
@@ -29,5 +28,5 @@ function [cv, axs] = oversampleCurves(cv, locs, ang)
   cv = cv(:);
 
   axs = axs * cosd(ang);
-  [cv, axs] = ns.sortShiftAxis(cv, axs);
+  [cv, axs] = mtf.sortShiftAxis(cv, axs);
 end

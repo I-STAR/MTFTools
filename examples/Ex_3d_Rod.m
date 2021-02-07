@@ -1,3 +1,4 @@
+% Axial MTF from a 3D circular rod
 run Setup
 
 %% load data

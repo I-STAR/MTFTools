@@ -1,6 +1,6 @@
 function [lsf, lsfAxis, rg] = lsfWdCenter(lsf, lsfAxis, varargin)
-% Center and then window the LSF function (simplified version of lsfDetrendWdCenter)
-% no detrending performed
+% Center and then window the LSF function (simplified version of `mtf.lsfDetrendWdCenter`)
+%   no detrending performed
 
   P = inputParser;
   % two row vector, lsf and lsfAxis, the axis does not need to be sorted

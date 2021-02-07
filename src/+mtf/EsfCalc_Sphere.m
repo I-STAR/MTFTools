@@ -1,16 +1,20 @@
 classdef EsfCalc_Sphere < mtf.SfCalc
+% Calculate ESF from a sphere (3D), allows different \theta and \phi 
+%   (see our MTF paper for more details)
+
+
 properties
-  cent
-  radius
-  uSzScale = [1 1 1]
+  cent % sphere center
+  radius % sphere radius
+  uSzScale = [1 1 1] % handles asymmetric element spacing
   rRg = [0.4 1.6] % empty: use the entire radial length
 end
-
 properties (Hidden)
-  bTruncateTopBottom = 1
-  pDraw = {'Color','y','LineWidth',1}
-  bMultForceSameLength = 0
+  bTruncateTopBottom = 1 % removes top and bottom slices in fitting (handles sphere truncation)
+  pDraw = {'Color','y','LineWidth',1} % for builtin `line` function, drawing
+  bMultForceSameLength = 0 % force same esf length in `esfGenMult`
 end
+
 
 methods
   function o = EsfCalc_Sphere(varargin)
@@ -19,11 +23,13 @@ methods
 
 
   function [] = fit(o, uBinary)
+  % Fit sphere
     [o.cent, o.radius] = vision.sphereFit_volume(uBinary, o.uSzScale, 0, o.bTruncateTopBottom);
   end
 
 
   function [] = showFit(o, u, nSlice)
+  % Show fitting results
   % nSlice: number of slices to visualize
     if nargin == 2 || isempty(nSlice)
       nSlice = size(u,3);
@@ -41,12 +47,17 @@ methods
 
 
   function [esf, esfAxs] = apply(o, u, varargin)
+  % Calculate ESF and its axis (in voxel)
+  % u: volume
+  % varargin: parameters for `mtf.genConeMask`
     [msk,r, ~] = mtf.genConeMask(size(u), o.cent, o.uSzScale, 'rRg', o.rRg*o.radius, varargin{:});
     [esf, esfAxs] = o.esfGenSingle(u, r, msk);
   end
 
 
   function [esfCel, esfAxsCel] = applyMult(o, nBin, u, varargin)
+  % Calculate multiple ESFs and their axes (in voxel), for errorbar calculation
+  % nBin: number of realizations
     [msk, r, theta] = mtf.genConeMask(size(u), o.cent, o.uSzScale, 'rRg', o.rRg*o.radius, varargin{:});
     [esfCel, esfAxsCel] = o.esfGenMult(u, r, theta, msk, nBin); 
   end
@@ -69,10 +80,12 @@ methods
   end
 
 
-  function [] = saveParameters(o)
-    o.saveParametersList({'cent', 'radius', 'uSzScale', 'rRg'});
+  function [pSave] = getParameters(o)
+    pList = {'cent', 'radius', 'uSzScale', 'rRg'};
+    pSave = util.dotNames(o, pList);
   end
 end
+
 
 methods (Static)
   function [esf, esfAxs] = esfGenSingle(u, r, msk)

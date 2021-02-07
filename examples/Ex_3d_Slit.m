@@ -1,3 +1,4 @@
+% 3D MTF from a slit
 run Setup
 
 

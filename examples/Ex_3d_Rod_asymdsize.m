@@ -1,4 +1,4 @@
-% Test for asymmetric voxel size
+% Test for asymmetric voxel size (circular rod)
 run Setup
 
 %% load data

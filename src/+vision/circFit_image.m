@@ -1,4 +1,5 @@
 function [cent, radius] = circFit_image(u, uSzScale)
+% Circle fit
   if nargin == 1; uSzScale = [1 1]; end
   assert(islogical(u));
   uPeri = bwperim(u);

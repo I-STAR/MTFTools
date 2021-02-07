@@ -1,3 +1,4 @@
+% 3D MTF from 3D sphere object
 run Setup
 
 

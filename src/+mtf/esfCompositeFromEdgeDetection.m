@@ -1,4 +1,5 @@
 function [lps1d, axs1d, lps, axs] = esfCompositeFromEdgeDetection(u,eg,varargin)
+% Calculate ESF from anatomy (based on detected edge)
 % u: image
 % eg: detected edge from `u`
 % Modified from Esme's implementation
@@ -89,11 +90,11 @@ function q = curvspace(p,N)
   indfirst = 2; % index of the most closest point in p from curpt
   len = size(p,1); % length of p
   q = currentpt; % output point
-  k = 0;
+  k = 0; %#ok
 
   %% distance between points in p
   for k0 = 1:len-1
-    dist_bet_pts(k0) = distance(p(k0,:),p(k0+1,:));
+    dist_bet_pts(k0) = distance(p(k0,:),p(k0+1,:)); %#ok
   end
   totaldist = sum(dist_bet_pts);
 
@@ -115,7 +116,7 @@ function q = curvspace(p,N)
         distsum = distsum + disttmp;
         % if distance is enough, generate newpt. else, accumulate
         % distance
-        if distsum >= intv
+        if distsum >= intv %#ok
           newpt = interpintv(ptnow,pttarget,remainder);
         else
           remainder = remainder - disttmp;
@@ -130,7 +131,7 @@ function q = curvspace(p,N)
     end
     
     % add to the output points
-    q = [q; newpt];
+    q = [q; newpt]; %#ok
     
     % update currentpt and indfirst
     currentpt = newpt;

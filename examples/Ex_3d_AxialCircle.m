@@ -1,3 +1,4 @@
+% Axial MTF from one axial slice with a circular object
 run Setup
 
 

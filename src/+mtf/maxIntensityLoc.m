@@ -1,4 +1,5 @@
 function [idx] = maxIntensityLoc(l, bGradient)
+% Find line location (based on maximum intensity)
 % l: normally should be binary 
 
   if bGradient
@@ -9,6 +10,7 @@ function [idx] = maxIntensityLoc(l, bGradient)
   [~, idx] = max(l,[],1);
   idx = permute(idx, [2:ndims(l) 1]);
 end
+
 
 function out = gradientuse(in)
   [gx,gy] = gradient(in);

@@ -1,6 +1,5 @@
 function [esf, esfAxis] = sortShiftRevertAxis(esf, esfAxis, bRevert)
-% sorted (ascending), and shifted (starts from 1)
-
+% Sort (esf axis ascending), shift (axis starts from 1), revert (so that esf value ascending) ESF axis
   esfAxis = esfAxis - min(esfAxis) + 1;
   [esfAxis, idx] = sort(esfAxis);
   esf = esf(idx);

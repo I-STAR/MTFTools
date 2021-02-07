@@ -1,11 +1,5 @@
 function [out] = array2str(in, delim)
-
-% Syntax: 
-%
-%   IN:  
-%
-%   OUT:   
-  
+% Convert array to string (similar to `num2str`)  
   if nargin == 1; delim = '_'; end
 
   str = num2str(in);

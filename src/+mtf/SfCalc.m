@@ -1,13 +1,16 @@
 classdef (Abstract) SfCalc < handle & matlab.mixin.SetGetExactNames
-
+% Base abstract class for spread function (2D/3D, ESF/LSF) calculation
 properties
-  pPath
+  pPath % path to store fitting parameters (like sphere center etc.)
 end
 
 methods (Abstract)
-  [sf, sfAxs] = apply(o, u, varargin)
-  [sfCel, sfAxsCel] = applyMult(o, u, varargin) % to generate error bar
-  [] = saveParameters(o) % for reload fitted parameter (e.g. to compare different datasets)
+  % get spread function
+  [sf, sfAxs] = apply(o, u, varargin) 
+  % get multiple spread functions (in a cell array), to generate error bar
+  [sfCel, sfAxsCel] = applyMult(o, u, varargin) 
+  % get a structure of parameters to be saved, see `parseinput` and `saveParameters`
+  [] = getParameters(o) 
 end
 
 
@@ -23,9 +26,9 @@ methods (Access = protected)
     end
   end
 
-  function [] = saveParametersList(o, pList)
-    assert(iscell(pList));
-    pSave = util.dotNames(o, pList);
+  function [] = saveParameters(o)
+    pSave = o.getParameters();
+    assert(isstruct(pSave));
     save(o.pPath, 'pSave');
   end
 end

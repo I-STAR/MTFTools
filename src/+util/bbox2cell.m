@@ -1,4 +1,5 @@
 function out = bbox2cell(input)
+% Convert bounding box to cell array
   if length(input) == 2
     out = {input(1):input(2)};
   elseif length(input) == 4

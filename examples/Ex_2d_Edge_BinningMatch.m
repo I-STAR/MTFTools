@@ -29,5 +29,7 @@ for i = 1:length(dNames)
   figure(1); plot(mtfAxis, mtfVal,'-*'); 
   figure(2); plot(mtfAxis, mtfVal ./ sinc(mtfAxis * uSize(1)),'-*'); 
 end
+
+
 figure(1); xlim([0 2.8]); ylim([0 1]); title('MTF'); xlabel('f (cycle/mm)'); ylabel('MTF'); legend(legends);
 figure(2); xlim([0 2]); ylim([0 1]); title('MTF (Divide Sinc)'); xlabel('f (cycle/mm)'); ylabel('MTF'); legend(legends);

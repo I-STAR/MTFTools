@@ -1,12 +1,14 @@
 function [msk,r,theta] = genConeMask(sz, centerCoor, dSize, varargin)
-% dSize: can be empty --> then no dim3 scale needed
-
-% coneRg: defines the range in elevation (lowest to highest) (included)
-% you are essentially getting a ring
+% Generate a mask to be used in sphere based ESF/MTF calculation
+% sz: xyz dimension
+% centerCoor: sphere center coordinate
+% dSize: can be empty --> then no element spacing scale needed
+% See also `EsfCalc_Sphere`
 
   p = inputParser;
-  % iSlice overwrites coneRg
-  addParameter(p, 'iSlice', 0, @isnumeric); % e.g. 0, -1:1; overwrites coneRg
+  % iSlice overwrites coneRg, e.g. 0 (single axial), -1:1 (three axial slices); 
+  addParameter(p, 'iSlice', 0, @isnumeric); 
+  % coneRg: defines the range in elevation (lowest to highest) (included)
   addParameter(p, 'coneRg', [], @isnumeric);
   addParameter(p, 'thetaRg', [], @isnumeric); % [-pi pi] is the range limit
   addParameter(p, 'rRg', [], @(x) isnumeric(x) || isempty(x));

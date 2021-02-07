@@ -1,4 +1,4 @@
-% Show sphere MTF measurement for different cone angles
+% Show sphere MTF measurement for different cone angles \phi
 run Setup
 
 

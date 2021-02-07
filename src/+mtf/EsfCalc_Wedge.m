@@ -1,4 +1,6 @@
 classdef EsfCalc_Wedge < mtf.EsfCalc_Plane
+% See also `EsfCalc_Plane`
+
 
 methods
   function o = EsfCalc_Wedge(varargin)

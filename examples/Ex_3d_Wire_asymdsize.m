@@ -1,4 +1,4 @@
-% Test for asymmetric voxel size
+% Test for asymmetric voxel size (3D wire)
 run Setup
 
 %% load data

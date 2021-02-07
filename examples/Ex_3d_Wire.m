@@ -1,3 +1,4 @@
+% Axial MTF from 3D wire object
 run Setup
 
 %% load data

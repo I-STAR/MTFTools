@@ -1,5 +1,11 @@
 classdef EsfCalc_Irregular < mtf.SfCalc
-% Assumes symmetric spacing
+% Calculate axial ESF from real patient anatomy, based on previous implementation from Esme Zhang
+% Note: 
+% - For ISTAR use only
+% - Assumes symmetric spacing
+% - Only works for 2D slice
+
+
 properties (Access = public)
   % e.g. {'Canny',[0.1 0.9],5}; 
   % or one can directly set `detectedEdge` 
@@ -18,6 +24,7 @@ methods
 
 
   function [] = fit(o, u)
+  % Fit each in `u`
   % `u` might need to be adjusted to be [0 1]
     eg = edge(u, o.pEdge{:});
     o.detectedEdge = eg;
@@ -25,14 +32,15 @@ methods
 
 
   function [] = showFit(o, u)
+  % Show fitting results
     %%% show edge
     eg = o.detectedEdge;
-    figure; imdisp(u,[]); hold on;
+    figure; imshow(u,[]); hold on;
     [x_,y_] = ind2sub(size(eg),find(eg==1));
     plot(y_,x_,'c*');
 
     %%% show esf composite
-    h = figure; imdisp(u,[]);
+    h = figure; imshow(u,[]);
     pComp = util.dotNamesFh(o, {'nCurveSample', 'profLength', 'nProfSample'}, @(x) ~isempty(x));
     pComp.bDebug = 1;
     pComp.gh = h;
@@ -42,12 +50,15 @@ methods
 
 
   function [esf, esfAxs] = apply(o, u)
+  % Calculate ESF and its axis (in voxel)
     pComp = util.dotNamesFh(o, {'nCurveSample', 'profLength', 'nProfSample'}, @(x) ~isempty(x));
     [esf, esfAxs, ~, ~] = mtf.esfCompositeFromEdgeDetection(u,o.detectedEdge,pComp);
   end
 
 
   function [esfCel, esfAxsCel] = applyMult(o, nBin, u)
+  % Calculate multiple ESFs and their axes (in voxel), for errorbar calculation
+  % nBin: number of realizations
     pComp = util.dotNamesFh(o, {'nCurveSample', 'profLength', 'nProfSample'}, @(x) ~isempty(x));
     [~, ~, esf, esfAxs] = mtf.esfCompositeFromEdgeDetection(u,o.detectedEdge,pComp);
     esfCel = util.mat2cell_num(esf, [1 nBin]);
@@ -60,14 +71,8 @@ methods
 
 
   function [pSave] = getParameters(o)
-    pList = {'pEdge', 'uProcLimit', 'nCurveSample', 'profLength', 'nProfSample', 'detectedEdge'};
+    pList = {'pEdge', 'nCurveSample', 'profLength', 'nProfSample', 'detectedEdge'};
     pSave = util.dotNames(o, pList);
-  end
-
-
-  function [] = saveParameters(o)
-    pSave = o.getParameters();
-    save(o.pPath, 'pSave');
   end
 end
 end

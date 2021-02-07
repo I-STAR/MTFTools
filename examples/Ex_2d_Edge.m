@@ -1,3 +1,4 @@
+% Detector side MTF: 2D edge device
 run Setup
 
 

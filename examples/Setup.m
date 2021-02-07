@@ -7,6 +7,7 @@ case 1
 case 2
   clearvars -except o__
   close all;
+  addpath('../src'); addpath('./helpers');
 otherwise 
   error('Error. Unknown `setupLineControl__`');
 end

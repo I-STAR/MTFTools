@@ -1,21 +1,27 @@
 classdef EsfCalc_Plane < mtf.SfCalc
+% Calculate ESF from a plane (2D or 3D), resulting ESF would be perpendicular to that plane
+%   so the result does not have to be axial MTF 
+% See also `EsfCalc_Wedge`
+
 properties
-  locs
+  locs % line location for each column and each slice
   p1 % slope 
   uSzScale = [1 1] % handles asymmetric element spacing, changes in voxSize(3) does not matter anyway
 end
 properties (Dependent)
-  angPlane
+  angPlane % plane angle \phi
 end
 properties (Hidden)
-  bSameShift = 1
-  pDrawFit = {'y*-','MarkerSize',2};
+  bSameShift = 1 % same shift for each slice
+  pDrawFit = {'y*-','MarkerSize',2}; % for builtin `line` function, drawing
 end
 
 methods
   function o = EsfCalc_Plane(varargin)
     o.parseinput(varargin{:});
   end
+
+
   function [] = set.uSzScale(o, in)
     assert(isnumeric(in) && length(in) == 2);
     o.uSzScale = in;
@@ -23,12 +29,14 @@ methods
 
 
   function [] = fit(o, u)
+  % Fit plane
     locsRaw = mtf.maxIntensityLoc(u, 1);
     [o.locs,o.p1] = mtf.adjustLineLoc_sameSlope(locsRaw, 'bSameShift', o.bSameShift);
   end
 
 
   function [] = showFit(o, u, nSlice)
+  % Show fitting results
   % nSlice: number of slices to visualize
     if nargin == 2 || isempty(nSlice)
       nSlice = size(u,3);
@@ -44,12 +52,17 @@ methods
 
 
   function [esf, esfAxs] = apply(o, u, iSlice)
+  % Calculate ESF and its axis (in voxel)
+  % u: volume 
+  % iSlice: slices to be used for ESF generation, e.g. 10 (use single slice); e.g. 10:15 (use 6 slices in total)
     if nargin == 2 || isempty(iSlice); iSlice = 1:size(u,3); end
     [esf, esfAxs] = apply_(o, u(:,:,iSlice), o.locs(:,iSlice));
   end
 
 
   function [esfCel, esfAxsCel] = applyMult(o, nBin, u, iSlice)
+  % Calculate multiple ESFs and their axes (in voxel), for errorbar calculation
+  % nBin: number of realizations
     if nargin == 3 || isempty(iSlice); iSlice = 1:size(u,3); end
     u = reshape(u(:,:,iSlice), size(u,1), []);
     locsFlat = o.locs(:,iSlice);
@@ -72,18 +85,16 @@ methods
   end
 
 
-  function [] = saveParameters(o)
-    pList = {'locs', 'p1', 'uSzScale'};
-    pSave = struct;
-    for i = 1:length(pList)
-      pSave.(pList{i}) = o.(pList{i});
-    end 
-    save(o.pPath, 'pSave');
-  end
   function out = getangPlane(o)
     p1Scale = o.p1;
     p1Scale = p1Scale * o.uSzScale(1) / o.uSzScale(2);
     out = abs(atand(p1Scale));
+  end
+
+
+  function [pSave] = getParameters(o)
+    pList = {'locs', 'p1', 'uSzScale'};
+    pSave = util.dotNames(o, pList);
   end
 end
 

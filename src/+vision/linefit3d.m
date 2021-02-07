@@ -1,4 +1,5 @@
 function [xyzn, xfit, yfit] = linefit3d(xyz)
+% Fit a 3D line
   r = mean(xyz);
   xyz = bsxfun(@minus,xyz,r);
   [~,~,V] = svd(xyz,0);

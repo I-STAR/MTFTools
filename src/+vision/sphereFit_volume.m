@@ -1,12 +1,6 @@
 function [cent, radius] = sphereFit_volume(u, dSize, varargin)
-% run sphere fitting on volume data
-% using ind2sub --> mat convention
-% therefore, cent is in mat convention as well
-
-% cent3 is rescaled back
-
-% helper function using sphereFit (which only works for countour data)
-
+% Run sphere fitting on volume data
+% cent is in mat convention as well (and scaled back based on `dSize`)
   P = inputParser;
   addOptional(P, 'bDebug', 0, @isnumeric);
   % remove top and bottom (truncated sphere)

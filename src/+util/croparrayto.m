@@ -1,4 +1,5 @@
 function [output] = croparrayto(input, targetSize, varargin)
+% Crop array to a given size 
 %   IN: input (array to be cropped)    
 %       targetSize (array size after cropping)
 %

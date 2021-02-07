@@ -1,7 +1,11 @@
 function [mtf, mtfAxis] = lsf2Mtf(lsf, dSize, bCorr, bZeroPad)
-% bCorr, accounts for numerical difference error (used in e.g. ESF calculation)
+% Convert line spread function to MTF
+% lsf: line spread function
+% dSize: element spacing (dim1)
+% bCorr: accounts for numerical difference error (used in e.g. ESF calculation)
 % http://www.imatest.com/2015/04/lsf-correction-factor-for-slanted-edge-mtf-measurements/
 % should only be applied if you use central difference
+% bZeroPad: perform zero padding or not
   if nargin == 2; bCorr = false; bZeroPad = true; end
   if nargin == 3; bZeroPad = true; end
 

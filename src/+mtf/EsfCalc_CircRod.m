@@ -1,13 +1,16 @@
 classdef EsfCalc_CircRod < mtf.SfCalc
+% Calculate axial ESF from a circular Rod (3D) / single circle (2D axial slice from a 3D rod)
+
+
 properties
-  cents % circle center for each slice (N*2)
+  cents % circle center for each slice (N*2), N can be 1
   radius % circle radius (scalar, same for each slice)
   uSzScale = [1 1] % handles asymmetric element spacing
   rRg = [0.4 1.6] % empty: use the entire radial length
 end
 properties (Hidden)
-  bLineFit3d = 1
-  pDraw = {'Color','y','LineWidth',1}
+  bLineFit3d = 1 % make sure that fitted circle centers from each slice lie on the same 3D line (rod)
+  pDraw = {'Color','y','LineWidth',1} % for builtin `line` function, drawing
 end
 
 methods
@@ -23,6 +26,8 @@ methods
 
 
   function [] = fit(o, uBinary)
+  % Fit circle for each slice
+  % `uBinary`: pre-segmented volume
     nSlice = size(uBinary,3);
     cents_ = zeros(nSlice,2);
     radiuss = zeros(1,nSlice);
@@ -40,6 +45,8 @@ methods
 
 
   function [] = showFit(o, u, nSlice)
+  % Show fitting results
+  % u: original volume 
   % nSlice: number of slices to visualize
     if nargin == 2 || isempty(nSlice)
       nSlice = size(u,3);
@@ -53,9 +60,11 @@ methods
 
 
   function [esf, esfAxs, msk] = apply(o, u, thetaRg, iSlice)
+  % Calculate ESF and its axis (in voxel)
   % u: volume 
-  % thetaRg: range of theta (rad), e.g. [-pi pi]
+  % thetaRg: range of theta (rad), e.g. [-pi pi]; See our MTF paper. 
   % iSlice: slices to be used for ESF generation, e.g. 10 (use single slice); e.g. 10:15 (use 6 slices in total)
+  % mask: voxels in `u` that were used for ESF calculation
     if nargin == 3 || isempty(iSlice); iSlice = 1:size(u,3); end
     u = u(:,:,iSlice);
     cents_ = o.cents(iSlice,:);
@@ -73,6 +82,8 @@ methods
 
 
   function [esfCel, esfAxsCel] = applyMult(o, nBin, u, thetaRg, varargin)
+  % Calculate multiple ESFs and their axes (in voxel), for errorbar calculation
+  % nBin: number of realizations
   % divide thetaRg into multiple bins
   % alternative implementation, divide iSlice
     esfCel = cell(1, nBin);
@@ -85,8 +96,9 @@ methods
   end
 
 
-  function [] = saveParameters(o)
-    o.saveParametersList({'cents', 'radius', 'uSzScale', 'rRg'});
+  function [pSave] = getParameters(o)
+    pList = {'cents', 'radius', 'uSzScale', 'rRg'};
+    pSave = util.dotNames(o, pList);
   end
 end
 end

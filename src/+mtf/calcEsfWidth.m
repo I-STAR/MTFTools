@@ -2,10 +2,10 @@ function [out, fitRes] = calcEsfWidth(esf, esfAxis, dSize, varargin)
 % Calculate the width of ESF (by fitting an error function)
 % in: same input sequence as mtf.sf2mtf
 % out: esf width in mm
-% width would be the sigma of Gaussian (after derivative)
-% https://en.wikipedia.org/wiki/Error_function
+%      width would be the sigma of Gaussian (after derivative)
+%      https://en.wikipedia.org/wiki/Error_function
 % Note:
-%   - esf is recommended to be ascending
+%   - esf is recommended to be ascending (just because initialization below is set to be that way)
 
   p = inputParser;
   addParameter(p, 'bDebug', 0);

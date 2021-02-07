@@ -1,5 +1,10 @@
 function [msk,r,theta] = genFanMask(sz, centerCoor, dSize, varargin)
-% dSize: can be empty --> then no dSize scale needed
+% Generate a mask to be used in circle/circular rod based ESF/MTF calculation
+% sz: xy dimension
+% centerCoor: circle center coordinate
+% dSize: can be empty --> then no element spacing scale needed
+% See also `genConeMask`
+
   p = inputParser;
   addParameter(p, 'thetaRg', [], @isnumeric); % [-pi pi] is the range limit
   addParameter(p, 'rRg', [], @(x) isnumeric(x) || isempty(x));

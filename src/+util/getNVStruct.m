@@ -1,4 +1,5 @@
 function [nvStruct] = getNVStruct(varargin)
+% Get name value structure (suitable for `InputParser`)
   if isempty(varargin) || (length(varargin) == 1 && isempty(varargin{1}))
     % i.e. getNVStruct() or getNVStruct([])
     % empty structure is allowed for `inputParser`

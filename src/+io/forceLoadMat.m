@@ -1,6 +1,8 @@
 function out = forceLoadMat(filePath, varName)
+% Load variable `varName` from mat file `filePath`
 % Input: filePath, char, file path (does not have to end with .mat)
 %        varName, char, variable name (Optional)
+% See also `io.multLoadMat`
   if nargin == 1; varName = []; end
   assert(ischar(filePath));
   temp = load(filePath, '-mat'); % the other alternative being '-ascii'

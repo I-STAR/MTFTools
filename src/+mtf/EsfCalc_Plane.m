@@ -4,7 +4,7 @@ classdef EsfCalc_Plane < mtf.SfCalc
 % See also `EsfCalc_Wedge`
 
 properties
-  locs % line location for each column and each slice
+  locs % line location for each column and each slice (calculated through `fit`)
   p1 % slope 
   uSzScale = [1 1] % handles asymmetric element spacing, changes in voxSize(3) does not matter anyway
 end

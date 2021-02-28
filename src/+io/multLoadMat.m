@@ -1,5 +1,5 @@
 function varargout = multLoadMat(filePath, varargin)
-% Similar to `io.forceLoadMat`, but allows multiple saved variables (varargin)
+% Load multiple variables `varargin` from mat file `filePath`
 % See also `io.forceLoadMat`
   assert(ischar(filePath));
   temp = load(filePath, '-mat');

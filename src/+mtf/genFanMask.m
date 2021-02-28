@@ -1,7 +1,7 @@
 function [msk,r,theta] = genFanMask(sz, centerCoor, dSize, varargin)
 % Generate a mask to be used in circle/circular rod based ESF/MTF calculation
 % sz: xy dimension
-% centerCoor: circle center coordinate
+% centerCoor: circle center coordinate, unit: pixel
 % dSize: can be empty --> then no element spacing scale needed
 % See also `genConeMask`
 

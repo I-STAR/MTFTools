@@ -5,7 +5,7 @@ function [mtfVal, mtfAxis, lsfDetrend, axsDetrend, lsfGrid, axsGrid, sfGrid] = s
 %            with `mtf.SfCalc`
 %   dSize: element spacing in dim1 (unit: mm)
 %   pMtf: see `inputParser` below
-%   pDetrend: see `inputParser` in `mtf.lsfWdCenter` or `mtf.lsfDetrendWdCenter
+%   pDetrend: see `inputParser` in `mtf.lsfWdCenter` or `mtf.lsfDetrendWdCenter`
 % Out:
 %   mtfVal, mtfAxis: mtf and its axis
 %   lsfDetrend, axsDetrend: processed lsf and its axis (gridded, windowed, centerred, detrended)
@@ -16,15 +16,18 @@ function [mtfVal, mtfAxis, lsfDetrend, axsDetrend, lsfGrid, axsGrid, sfGrid] = s
 %   `diffMethod` should be set as `none` for LSF input
 
   P = inputParser;
-  addParameter(P, 'nRmEdge', 5, @(x) isnumeric(x) && isscalar(x)); % number of pixels removed from both edge
+  % number of pixels removed from both edge
+  addParameter(P, 'nRmEdge', 5, @(x) isnumeric(x) && isscalar(x)); 
   % if diffMethod is none --> then lsf is inputted (with wire / slit)
   % gradient for central difference, diff for forward difference
   addParameter(P, 'diffMethod', 'gradient', @ischar); % none/gradient/diff
-  % highest frequency in presampling sf
+  % highest frequency in presampling sf (with respect to Nyquist, i.e. 2 is 2 times Nyquist)
   addParameter(P, 'maxFreq', 2, @(x) isnumeric(x) && isscalar(x)); 
+  % if true, no detrend (i.e. call `lsfWdCenter` instead of `lsfDetrendWdCenter`)
   addParameter(P, 'bNoDetrend', 0, @util.isloginum); 
   % flag: apply correction for numerical differentiation
   addParameter(P, 'bDiffCorr', 1, @util.isloginum); 
+  % flag: do zero padding before Fourier transform
   addParameter(P, 'bZeroPad', 1, @util.isloginum); 
   parse(P, pMtf);
   P = P.Results;

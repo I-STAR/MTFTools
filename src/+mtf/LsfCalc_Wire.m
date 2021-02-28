@@ -1,7 +1,7 @@
 classdef LsfCalc_Wire < mtf.LsfCalc_Slit
 % Calculate axial LSF from a 3D wire
 % Note:
-%   - Use `LsfCalc_Slit` if the wire is already forward projected / radon transformed
+%   - Use `LsfCalc_Slit` if the wire is already forward projected / radon transformed (2D wire)
 %   - u: lsf should be bell shaped (not the inverse) (so wire should be "bright")
 properties
   uSzScale3d = [1 1 1]

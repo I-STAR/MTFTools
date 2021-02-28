@@ -3,7 +3,7 @@ function [output] = croparrayto(input, targetSize, varargin)
 %   IN: input (array to be cropped)    
 %       targetSize (array size after cropping)
 %
-%   OUT:   
+%   OUT: cropped array   
   assert(isnumeric(input) || islogical(input) && isnumeric(targetSize));
   if ndims(input) - 1 == length(targetSize)
     targetSize = [targetSize size(input, ndims(input))];

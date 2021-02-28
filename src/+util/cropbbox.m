@@ -1,5 +1,5 @@
 function [output] = cropbbox(in, bbox)
-% Crop data by inputted bounding box
+% Crop data `in` by inputted bounding box `bbox`
 %   IN:  bbox, mat convention
 %   OUT:   
   

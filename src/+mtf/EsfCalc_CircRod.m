@@ -3,8 +3,8 @@ classdef EsfCalc_CircRod < mtf.SfCalc
 
 
 properties
-  cents % circle center for each slice (N*2), N can be 1
-  radius % circle radius (scalar, same for each slice)
+  cents % circle center for each slice (N*2), N can be 1, unit: pixel
+  radius % circle radius (scalar, same for each slice), unit: pixel
   uSzScale = [1 1] % handles asymmetric element spacing
   rRg = [0.4 1.6] % empty: use the entire radial length
 end
@@ -12,6 +12,7 @@ properties (Hidden)
   bLineFit3d = 1 % make sure that fitted circle centers from each slice lie on the same 3D line (rod)
   pDraw = {'Color','y','LineWidth',1} % for builtin `line` function, drawing
 end
+
 
 methods
   function o = EsfCalc_CircRod(varargin)

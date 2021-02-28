@@ -1,9 +1,9 @@
 function [msk,r,theta] = genConeMask(sz, centerCoor, dSize, varargin)
 % Generate a mask to be used in sphere based ESF/MTF calculation
 % sz: xyz dimension
-% centerCoor: sphere center coordinate
+% centerCoor: sphere center coordinate, unit: pixel
 % dSize: can be empty --> then no element spacing scale needed
-% See also `EsfCalc_Sphere`
+% See also `EsfCalc_Sphere` `genFanMask`
 
   p = inputParser;
   % iSlice overwrites coneRg, e.g. 0 (single axial), -1:1 (three axial slices); 
@@ -32,7 +32,7 @@ function [msk,r,theta] = genConeMask(sz, centerCoor, dSize, varargin)
   
   [theta,elevation,r] = cart2sph(x,y,z);
 
-  %%% now it's time to leave a cone here...
+  %%% cone mask generation
   if ~isempty(p.iSlice)
     msk = zeros(sz, 'logical');
     msk(:,:,fix(centerCoor(3))+iSlice) = true;

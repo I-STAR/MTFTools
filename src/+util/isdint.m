@@ -1,6 +1,5 @@
 function [output] = isdint(input)
-% is double integer or integer, like the normal 20 or 20.0000 (or 20.0)
-
+% Predicate: is double integer or integer, like the normal 20 or 20.0000 (or 20.0)
   if isinteger(input)
     output = true;
   elseif int32(input) == input

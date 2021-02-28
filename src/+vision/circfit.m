@@ -14,7 +14,7 @@ function [r,varargout] = circfit(x,y)
 %   [R,XC,YC,ERR] = CIRCFIT(X,Y) returns both the center positions of the circle
 %   as well as the root mean squared error.
 %
-%   Andrew D. Horchler, horchler @ gmail . com, Created 5-12-7
+%   Andrew D. Horchler, horchler@gmail.com, Created 5-12-7
 %   Revision: 1.3, 4-6-16
 %   Revised by pwu33: 
 %   Note the return result is now in MAT convention (i.e. XC is the row number)

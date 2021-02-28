@@ -1,11 +1,12 @@
 function [out,p1mean,p2s] = adjustLineLoc_sameSlope(in, varargin)
 % Adjust line locations based on 1st order polynomial fitting
-% In: line locations, number of lines per plane * number of planes
+% in: line locations, number of lines per plane * number of planes
 % Note:
+% - Assuming all lines have the same slope
 % - Unit does not matter
 
   p = inputParser;
-  % If true, assuming same amount of shift in dim3
+  % If true, assuming same amount of shift bewtween lines
   addParameter(p, 'bSameShift', 1, @util.isloginum);
   parse(p, varargin{:});
   p = p.Results;

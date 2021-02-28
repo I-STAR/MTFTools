@@ -24,6 +24,8 @@ pDetrend = struct('bDebug',1,'bRefit',1);
 [esf, esfAxis] = C.apply(u, sliceRg);
 figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('unit: voxel'); ylabel('Value');
 [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
+% divide analytical MTF from slit if needed
+mtfVal = mtfVal ./ mtf.mtfLine(mtfAxis, slitWidth);
 figure; plot(mtfAxis, mtfVal,'-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist
 title('MTF'); xlabel('f (cycle/mm)'); ylabel('MTF');
@@ -34,6 +36,8 @@ nBin = 5; % number of realizations
 pDetrend.bDebug = 0;
 [esfCel, esfAxisCel] = C.applyMult(nBin, u, sliceRg);
 [mtfVal, mtfAxis, ~, mtfError] = mtf.sf2Mtf_mult(esfCel, esfAxisCel, uSize(1), pMtf, pDetrend);
+% divide analytical MTF from slit if needed
+mtfVal = mtfVal ./ mtf.mtfLine(mtfAxis, slitWidth);
 figure; errorbar(mtfAxis, mtfVal, mtfError, '-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); 
 title('MTF (with errorbar)'); xlabel('f (cycle/mm)'); ylabel('MTF');

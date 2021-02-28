@@ -3,7 +3,7 @@ run Setup
 
 
 %% load data
-[u,uSize,slitWidth] = io.multLoadMat('./datasets/2d_slitorwire_proc.mat','u','uSize','slitWidth');
+[u,uSize,slitWidth] = io.multLoadMat('./datasets/2d_SlitOrWire_proc.mat','u','uSize','slitWidth');
 
 
 %% determine fit parameters

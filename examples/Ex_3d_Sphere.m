@@ -18,7 +18,10 @@ C.showFit(u, 10);
 %% MTF calculation
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 2);
 pDetrend = struct('bDebug', 1);
+% axial 
 pApply = {'iSlice', -1:1, 'thetaRg', [-pi pi]};
+% cone 45 degree
+% pApply = {'coneRg', [40 50], 'thetaRg', [-pi pi]};
 [esf, esfAxis] = C.apply(u, pApply{:});
 [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
 figure; plot(mtfAxis, mtfVal,'-*'); 

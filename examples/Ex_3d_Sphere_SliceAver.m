@@ -3,7 +3,7 @@ run Setup
 
 
 %% load data
-[u,uSize] = io.multLoadMat('./datasets/Sphere_Filter0808_Cios.mat','u','uSize');
+[u,uSize] = io.multLoadMat('./datasets/Sphere_Filter11_Cios.mat','u','uSize');
 
 
 %% determine fit parameters

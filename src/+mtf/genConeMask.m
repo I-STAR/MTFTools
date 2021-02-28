@@ -7,8 +7,9 @@ function [msk,r,theta] = genConeMask(sz, centerCoor, dSize, varargin)
 
   p = inputParser;
   % iSlice overwrites coneRg, e.g. 0 (single axial), -1:1 (three axial slices); 
-  addParameter(p, 'iSlice', 0, @isnumeric); 
+  addParameter(p, 'iSlice', [], @isnumeric); 
   % coneRg: defines the range in elevation (lowest to highest) (included)
+  % iSlice and coneRg can not both be empty
   addParameter(p, 'coneRg', [], @isnumeric);
   addParameter(p, 'thetaRg', [], @isnumeric); % [-pi pi] is the range limit
   addParameter(p, 'rRg', [], @(x) isnumeric(x) || isempty(x));
@@ -37,6 +38,7 @@ function [msk,r,theta] = genConeMask(sz, centerCoor, dSize, varargin)
     msk = zeros(sz, 'logical');
     msk(:,:,fix(centerCoor(3))+iSlice) = true;
   else
+    assert(~isempty(coneRg));
     coneRg = deg2rad(coneRg);
     msk = elevation >= coneRg(1) & elevation <= coneRg(2);
   end

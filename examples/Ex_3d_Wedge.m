@@ -1,6 +1,7 @@
 % 3D MTF from 3D wedge 
 run Setup
 
+
 %% load data
 [u,uSize] = io.multLoadMat('./datasets/Wedge_Proc.mat','u','uSize');
 
@@ -27,7 +28,7 @@ figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('unit: voxe
 [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
 figure; plot(mtfAxis, mtfVal,'-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist
-title('MTF'); xlabel('f (cycle/mm)'); ylabel('MTF');
+title('MTF (\phi = 45 degree)'); xlabel('f (cycle/mm)'); ylabel('MTF');
 
 
 %% MTF calculation (multiple realization / errorbar)
@@ -37,4 +38,4 @@ pDetrend.bDebug = 0;
 [mtfVal, mtfAxis, ~, mtfError] = mtf.sf2Mtf_mult(esfCel, esfAxisCel, uSize(1), pMtf, pDetrend);
 figure; errorbar(mtfAxis, mtfVal, mtfError, '-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); 
-title('MTF (with errorbar)'); xlabel('f (cycle/mm)'); ylabel('MTF');
+title('MTF (\phi = 45 degree) (with errorbar)'); xlabel('f (cycle/mm)'); ylabel('MTF');

@@ -16,9 +16,6 @@ us{1} = u; uSizes{1} = uSize;
 % two types of asymmetric voxel size
 us{2} = u(:,1:2:end,1:2:end); uSizes{2} = uSize .* [1 2 2];
 sliceRgs{1} = 10:20; sliceRgs{2} = 5:10; 
-% no need to handle dim3 asymmetric voxel size
-% us{2} = u(:,:,1:2:end); uSizes{2} = uSize .* [1 1 2];
-% sliceRgs{1} = 10:20; sliceRgs{2} = 5:10; 
 
 %% calc
 figure; hold on;

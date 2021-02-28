@@ -3,7 +3,6 @@ function [VolOut] = SlabVolZ(VolIn, SlabAmnt, FillVal)
 % This will do an interleaved slabbing, where each slab corresponds to an
 %   average of the current slab and however many slices specified by slabamnt.
 % INPUTS: VolIn is the input volume, SlabAmnt is the number of slices to average
-
     if nargin < 2 || isempty(SlabAmnt)
         SlabAmnt = 2;
         FillVal = prctile(VolIn(:), 5);

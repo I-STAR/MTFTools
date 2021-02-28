@@ -27,6 +27,7 @@ end
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 2.5);
 pDetrend = struct('bDebug',0);
 
+
 %%% axial plane
 pApplyAxial = {'iSlice', -2:2, 'thetaRg', [-pi 0]};
 figure; hold on;
@@ -48,6 +49,6 @@ for i = 1:length(us)
   plot(mtfAxis, mtfVal,'-*'); 
 end
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); 
-title('MTF (45 Degree)'); xlabel('f (cycle/mm)'); ylabel('MTF'); legend(sliceAverLegends,'location','best');
+title('MTF (\phi=45 Degree)'); xlabel('f (cycle/mm)'); ylabel('MTF'); legend(sliceAverLegends,'location','best');
 
 

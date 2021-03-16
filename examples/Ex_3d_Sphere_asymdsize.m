@@ -1,4 +1,7 @@
-% Test for asymmetric voxel size (3D sphere)
+% Test only 
+% This script loads in a 3D volume dataset of a sphere (asymmetric voxel size) and 
+%   calculates the MTF along a particular direction (see `pApply` parameter below)
+% See also Ex_3d_Sphere.m
 run Setup
 
 
@@ -22,6 +25,7 @@ for i = 1:length(us)
 
   C = mtf.EsfCalc_Sphere('uSzScale', uSize(1:3)/uSize(1));
   C.fit(segnd_th(u, 0.015));
+  % fitting should also allow asymmetric voxel size
   % C.showFit(u, 5);
 
   % Use `2*uSize(1)/uSize1`, not simply 2 --> so that the absolute (cycle/mm) is the same
@@ -29,7 +33,7 @@ for i = 1:length(us)
   pDetrend = struct('bDebug', 0);
   pApply45 = {'coneRg', [40 50], 'thetaRg', [-pi pi]};
   [esf, esfAxis] = C.apply(u, pApply45{:});
-  % figure; plot(esfAxis, esf, '*', 'MarkerSize', 1);
+
   [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
   figure(101);
   plot(mtfAxis, mtfVal,'-*'); 

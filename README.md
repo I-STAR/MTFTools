@@ -23,11 +23,12 @@ Simply add `src` directory to MATLAB search path.
 - `Ex_3d_Wedge.m`: 3D wedge test tool (3D ESF in any particular direction (perpendicular to the plane), MTF). Checkout the phantom design & pseudocode in our paper (for MTF that is 45 degree out of the axial plane). 
 
 ## Method Overview
-One can find method overview as well as pseudocode for the wire, wedge, and sphere phantom in our paper. 
+One can find method overview as well as pseudocode for the wire, wedge, and sphere phantom in our paper (section 2.2.2 - 2.2.4). 
 
 ## Acknowledgement
 Beta testers: 
-- Andrew Hernandez (Information).
+- [Andrew Hernandez](https://scholar.google.com/citations?user=rYLfDHYAAAAJ&hl=en&oi=ao)
+- [Xiaoxuan Zhang](https://scholar.google.com/citations?user=XsPpkBQAAAAJ&hl=en)
 
 External tools (modified to be used in this toolbox):
 - Andrew Horchler (2021). circfit (https://github.com/horchler/circfit), GitHub. Retrieved February 27, 2021. 

@@ -1,4 +1,6 @@
-% Axial MTF from one axial slice with a circular object, and for different \theta
+% Axial MTF from one axial slice with a circular object (for different \theta)
+% This script loads in a 2D axial slice of a circle/rod and calculates the MTF for different \theta
+%   (An asymmetric smoothing is applied to the circle/rod to show different results with respect to \theta)
 run Setup
 
 
@@ -27,6 +29,7 @@ pDetrend = struct('bDebug', 0);
 
 figure; hold on;
 for i = 1:length(thetaCenters)
+  % (\theta = thetaCenters(i) degree; \theta_b = 30 degree, see our paper for definitions)
   thetaRg = deg2rad(thetaCenters(i) + [-30 30]);
   [esf, esfAxis] = C.apply(u, thetaRg);
   [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);

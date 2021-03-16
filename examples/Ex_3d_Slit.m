@@ -1,29 +1,33 @@
-% 3D MTF from a slit
+% Axial MTF from 3D slit object
+% This script loads in a 3D volume dataset of a slit and calculates the MTF perpendicular to the slit
 run Setup
 
 
 %% load data
+% slitWidth: mm
 [u,uSize,slitWidth] = io.multLoadMat('./datasets/3d_CorgiSlit_CSH.mat','u','uSize','slitWidth');
 
 
 %% pre-processing
-u = mean(maxk(u(:),10)) - u;
+u = mean(maxk(u(:),10)) - u; % make the slit "bright"
 
 
 %% determine fit parameters
 C = mtf.LsfCalc_Slit('uSzScale', uSize(1:2)/uSize(1));
 C.fit(u);
-C.showFit(u, 3);
+C.showFit(u, 3); % example three slices slit fitting
 disp(['Angle (degree): ', num2str(C.angPlane)]);
 
 
 %% MTF calculation
 sliceRg = []; % empty: use all slices
-pMtf = struct('diffMethod', 'none', 'maxFreq', 3);
-pDetrend = struct('bDebug',1,'bRefit',1);
-[esf, esfAxis] = C.apply(u, sliceRg);
-figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('unit: voxel'); ylabel('Value');
-[mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
+pMtf = struct('diffMethod', 'none', 'maxFreq', 3); % no diff method needed (since already LSF, not ESF)
+pDetrend = struct('bDebug',1,'bRefit',1); % see `lsfDetrendWdCenter` for parameter definitions
+
+[esf, esfAxis] = C.apply(u, sliceRg); % calculate ESF
+figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('# Pixel'); ylabel('Value');
+
+[mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend); % calculate MTF
 % divide analytical MTF from slit if needed
 mtfVal = mtfVal ./ mtf.mtfLine(mtfAxis, slitWidth);
 figure; plot(mtfAxis, mtfVal,'-*'); 

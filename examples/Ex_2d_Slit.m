@@ -1,4 +1,5 @@
-% Detector side MTF: 2D slit device
+% Detector side MTF from a 2D slit device
+% This script loads in a 2D projection dataset of a slit and calculates the MTF perpendicular to the slit
 run Setup
 
 
@@ -16,7 +17,7 @@ C.showFit(u);
 pMtf = struct('diffMethod', 'none', 'maxFreq', 6);
 pDetrend = struct('bDebug', 1, 'primaryLength', 8, 'marginLength', 16);
 [lsf, lsfAxis] = C.apply(u);
-figure; plot(lsfAxis, lsf, '*','MarkerSize',1); title('LSF'); xlabel('unit: voxel'); ylabel('Value');
+figure; plot(lsfAxis, lsf, '*','MarkerSize',1); title('LSF'); xlabel('# Pixel'); ylabel('Value');
 [mtfVal, mtfAxis] = mtf.sf2Mtf(lsf, lsfAxis, uSize(1), pMtf, pDetrend);
 
 % divide analytical MTF from slit if needed

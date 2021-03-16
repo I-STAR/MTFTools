@@ -1,7 +1,17 @@
 function [lsf, lsfAxis, rg] = lsfDetrendWdCenter(lsf, lsfAxis, varargin)
 % lsfDetrendWdCenter - Detrending, windowing, and centering the LSF
+% See InputParser below for allowed parameters
 % Note:
 %   1. lsf should be bell shaped (not the inverse)
+% Results shown in debug mode (if `bDebug`: 1):
+%   Original LSF: original LSF (not processed)
+%   Fitted LSF (Primary): primary fitting of the "Original LSF" (by `fh_lsf`, typically a Gaussian)
+%                         (only used to determine the window size etc., not to calculate the final MTF)
+%   Fitted trend: trend fitting of the "Original LSF" (by `fh_trend`, typically linear; from things like scatter)
+%                 the fitted trend will be subtracted from the "Original LSF" to generate the "Detrended LSF"
+%   Detrended LSF: see above
+%   Refitted LSF: second pass of primary fitting (but on "Detrended LSF", instead of "Original LSF")
+%   Final LSF: windowed and centered version of "Detrended LSF"
 
   P = inputParser;
   addRequired(P, 'lsf', @(x) validateattributes(x, {'numeric'}, {'size', [1 nan]}));
@@ -94,6 +104,7 @@ function [lsf, lsfAxis, rg] = lsfDetrendWdCenter(lsf, lsfAxis, varargin)
     else
       legend({'Original LSF','Fitted LSF (Primary)','Fitted Trend','Detrended LSF','Final LSF'});
     end
+    xlabel('# Pixel'); ylabel('Signal Value');
   end
 end
 

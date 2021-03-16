@@ -1,4 +1,8 @@
-% Showing the effect on axial and 45 degree MTF from slice averaging
+% 3D MTF from 3D sphere object (Showing the effect on axial and 45 degree MTF from slice averaging)
+% This script loads in a 3D volume dataset of a sphere, applies three different kinds of slice averaging,
+%   and calculates the MTF along axial and 45 degree MTF
+% One should see that axial MTF is blind to slice averaging, while 45 degree MTF is not
+% See also Ex_3d_Sphere.m
 run Setup
 
 
@@ -7,9 +11,7 @@ run Setup
 
 
 %% determine fit parameters
-% segmentation
 [uBinary] = segnd_th(u, 0.015);
-% sphere fit
 C = mtf.EsfCalc_Sphere('uSzScale', uSize(1:3)/uSize(1));
 C.fit(uBinary);
 
@@ -36,7 +38,7 @@ for i = 1:length(us)
   [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
   plot(mtfAxis, mtfVal,'-*'); 
 end
-xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist
+xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); 
 title('MTF (Axial)'); xlabel('f (cycle/mm)'); ylabel('MTF'); legend(sliceAverLegends,'location','best');
 
 

@@ -37,5 +37,5 @@ for i = 1:length(thetaCenters)
 end
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist
 title('MTF'); xlabel('f (cycle/mm)'); ylabel('MTF');
-legend(arrayfun(@(x) ['Angle: ', num2str(x)], thetaCenters, 'uni', 0),'location','best');
+legend(arrayfun(@(x) ['\theta: ', num2str(x)], thetaCenters, 'uni', 0),'location','best');
 

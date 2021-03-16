@@ -5,7 +5,7 @@ run Setup
 
 
 %% load data
-[u,uSize] = io.multLoadMat('./datasets/Wedge_Proc','u','uSize');
+[u,uSize] = io.multLoadMat('./datasets/Wedge_Proc.mat','u','uSize');
 
 
 %% pre-processing

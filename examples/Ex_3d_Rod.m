@@ -1,4 +1,5 @@
 % Axial MTF from a 3D circular rod
+% This script loads in a 3D volume dataset of a rod and calculates the MTF in a particular direction within the axial plane
 run Setup
 
 
@@ -17,7 +18,7 @@ C.showFit(u, 3);
 
 %% MTF calculation
 iSlice = 10:20; 
-thetaRg = []; % deg2rad([-180 -90]);
+thetaRg = []; % deg2rad([-180 -90]); % empty, average all directions within the axial plane
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 3);
 pDetrend = struct('bDebug', 1);
 [esf, esfAxis] = C.apply(u, thetaRg, iSlice);

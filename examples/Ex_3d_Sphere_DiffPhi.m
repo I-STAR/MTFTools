@@ -1,4 +1,7 @@
-% Show sphere MTF measurement for different cone angles \phi
+% 3D MTF from 3D sphere object (for different \phi)
+% This script loads in a 3D volume dataset of a sphere and calculates the MTF along multiple directions 
+%   (different \phi angle from the axial plane)
+% See also Ex_3d_Sphere.m
 run Setup
 
 
@@ -18,10 +21,11 @@ C.fit(uBinary);
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 3);
 pDetrend = struct('bDebug', 0);
 
-coneAngs = linspace(0, 80, 6);
+coneAngs = linspace(0, 80, 6); % different measurement angle \phi
 legends = arrayfun(@(x) ['Cone Angle (\phi): ', num2str(x)], coneAngs, 'uni', 0);
 figure; hold on;
 for i = 1:length(coneAngs)
+  % (\phi = coneAngs(i) degree; \phi_b = 5 degree, see our paper for definitions)
   pApply = {'coneRg', coneAngs(i) + [-5 5], 'thetaRg', [-pi pi]};
   [esf, esfAxis] = C.apply(u, pApply{:});
   [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);

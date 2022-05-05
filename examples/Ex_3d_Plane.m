@@ -1,4 +1,6 @@
 % 3D MTF from 3D plane
+% This script loads in a 3D volume dataset of a plane and calculates the MTF that is perpendicular to the plane
+% Very similar to Ex_3d_Wedge.m
 run Setup
 
 
@@ -20,7 +22,7 @@ sliceRg = []; % empty: use all slices
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 3);
 pDetrend = struct('bDebug',1,'primaryLength',6,'marginLength',12);
 [esf, esfAxis] = C.apply(u, sliceRg);
-figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('unit: voxel'); ylabel('Value');
+figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('# Pixel'); ylabel('Value');
 [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
 figure; plot(mtfAxis, mtfVal,'-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist

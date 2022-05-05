@@ -1,4 +1,5 @@
-% Detector side MTF: 2D edge device
+% Detector side MTF from a 2D edge device
+% This script loads in a 2D projection dataset of a edge and calculates the MTF perpendicular to the edge
 run Setup
 
 
@@ -18,7 +19,7 @@ C.showFit(u, 3);
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 6);
 pDetrend = struct('bDebug', 1, 'primaryLength', 8, 'marginLength', 16);
 [esf, esfAxis] = C.apply(u);
-figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('unit: voxel'); ylabel('Value');
+figure; plot(esfAxis, esf, '*','MarkerSize',1); title('ESF'); xlabel('# Pixel'); ylabel('Value');
 [mtfVal, mtfAxis] = mtf.sf2Mtf(esf, esfAxis, uSize(1), pMtf, pDetrend);
 figure; plot(mtfAxis, mtfVal,'-*'); 
 xlim([0 1.5*1/(2*uSize(1))]); ylim([0 1]); % x axis: 1.5*Nyquist

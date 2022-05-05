@@ -1,4 +1,5 @@
 % Axial MTF from one axial slice with a circular object
+% This script loads in a 2D axial slice of a circle/rod and calculates the MTF in a particular direction within the axial plane
 run Setup
 
 
@@ -16,7 +17,7 @@ C.showFit(u, 1);
 
 
 %% MTF calculation
-thetaRg = deg2rad([-90 90]);
+thetaRg = deg2rad([-90 90]); % (\theta = 0 degree; \theta_b = 90 degree, see our paper for definitions)
 pMtf = struct('diffMethod', 'gradient', 'maxFreq', 2);
 pDetrend = struct('bDebug', 1);
 [esf, esfAxis] = C.apply(u, thetaRg);

@@ -1,4 +1,7 @@
-% Detector side MTF of different binning mode (and can be almost matched by dividing the binning aperture)
+% Detector side MTF from a 2D edge device
+% This script loads in two 2D projection datasets of a edge (different hardware binning mode) 
+%   and calculates the MTF perpendicular to the edge
+% One can see the pre-sampling MTF can be almost matched by dividing the "sinc" function related with hardware binning
 run Setup
 
 
